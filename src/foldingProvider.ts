@@ -9,7 +9,7 @@ export class JuliaCellFoldingProvider implements vscode.FoldingRangeProvider {
     {
         const ranges: vscode.FoldingRange[] = [];
         const stack: number[] = [];
-        let cellStart: number | null = null;
+        let cellStart: number | null = 0;  // begin at 0, so that the first cell can be folded if it starts at the top of the file
 
         for (let i = 0; i < document.lineCount; i++) {
             const line = document.lineAt(i).text;
