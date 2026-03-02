@@ -1,5 +1,6 @@
 {
   "name": "juliafoldablecells",
+  "publisher": "MiguelMas",
   "displayName": "JuliaFoldableCells",
   "description": "Enable folding cells in Julia files based on markdown comments",
   "version": "0.0.1",
@@ -13,6 +14,10 @@
     "onLanguage:julia"
   ],
   "main": "./out/extension.js",
+    "repository": {
+    "type": "git",
+    "url": "https://github.com/miguelmaso/JuliaFoldableCells.git"
+  },
   "scripts": {
     "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",

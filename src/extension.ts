@@ -15,15 +15,4 @@ export function activate(context: vscode.ExtensionContext) {
     );
 }
 
-// export function deactivate() {}
-
-
-
-  // "contributes": {
-  // "foldingRangeProviders": [
-  //     {
-  //       "language": "julia"
-  //     }
-  //   ]
-  // },
-
+export function deactivate() {}
