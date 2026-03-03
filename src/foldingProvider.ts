@@ -9,14 +9,15 @@ export class JuliaCellFoldingProvider implements vscode.FoldingRangeProvider {
     {
         const ranges: vscode.FoldingRange[] = [];
         const stack: number[] = [];
-        let cellStart: number | null = 0;
+        let cellStart: number | null = null;
 
         for (let i = 0; i < document.lineCount; i++) {
             const line = document.lineAt(i).text;
 
             // ---- CELL DETECTION ----
-            if (/^##/.test(line)) {
-                if (cellStart !== null && i > cellStart + 1) {
+            if (/^##(?=\s|$)/.test(line)) {
+                cellStart ??= 0; // If we encounter a cell, make a previous cell from the start of the document.
+                if (i > cellStart + 1) {
                     ranges.push(new vscode.FoldingRange(cellStart, i - 1));
                 }
                 cellStart = i;
