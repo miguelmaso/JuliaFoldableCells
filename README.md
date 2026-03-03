@@ -1,13 +1,12 @@
 # Julia Foldable Cells
 
-Enable folding cells in Julia files based on markdown comments.
+The [*Julia Language Extension*](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia) provides the definition of cells of code by the syntax `##` at the begining of a line. This extension enhances the cells by adding the possibility to fold them.
 
 ![](https://raw.githubusercontent.com/miguelmaso/JuliaFoldableCells/main/img/foldable_cell.png)
 
 ## Features
-- Provide folding of cells of code defined by `##`.
+- Provide folding of cells defined by `##`.
 - Keep a reasonable folding according to the structure defined by the *Julia* syntax.
-- Highlight titles for cells.
 
 
 ## Known Issues
@@ -36,4 +35,3 @@ end
 - Added support for first implicit cell.
 - Fixed broken support for structure (condtionals, loops).
 - Fixed support for nested structure (inner loop, inner functions...).
-- Enhanced the title of the cells.

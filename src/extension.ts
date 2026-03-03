@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(
         vscode.languages.registerFoldingRangeProvider(
-            { language: "julia" },  // , scheme: "file"
+            { language: "julia" },
             provider
         )
     );
