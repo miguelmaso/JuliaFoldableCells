@@ -15,7 +15,7 @@
     "onLanguage:julia"
   ],
   "main": "./out/extension.js",
-    "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/miguelmaso/JuliaFoldableCells.git"
   },

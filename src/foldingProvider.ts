@@ -28,12 +28,12 @@ export class JuliaCellFoldingProvider implements vscode.FoldingRangeProvider {
             }
 
             // ---- STRUCTURAL START ----
-            if (/^(function|struct|mutable struct|module|let|begin)\b/.test(line)) {
+            if (/^\s*(function|struct|mutable struct|module|let|begin|if|for|while)\b/.test(line)) {
                 stack.push(i);
             }
 
             // ---- STRUCTURAL END ----
-            if (/^end\b/.test(line)) {
+            if (/^\s*end\b/.test(line)) {
                 const start = stack.pop();
                 if (start !== undefined && i > start) {
                     ranges.push(
