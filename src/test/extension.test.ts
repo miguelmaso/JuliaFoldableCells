@@ -31,6 +31,13 @@ suite('JuliaCellFoldingProvider', () => {
         provider = new JuliaCellFoldingProvider();
     });
 
+    test('document without cells', () => {
+        const code = 'foo\nbar\nbaz';
+        const doc = makeDoc(code);
+        const ranges = provider.provideFoldingRanges(doc, {} as any, {} as any) as vscode.FoldingRange[];
+        assert.strictEqual(ranges.length, 0);
+    });
+
     test('cell marker creates a fold', () => {
         const code = '## Cell\nline2\nline3';
         const doc = makeDoc(code);
