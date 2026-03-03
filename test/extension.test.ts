@@ -1,6 +1,17 @@
-// Comprehensive tests for the JuliaFoldableCells extension
+import * as assert from 'assert';
 
-import { FoldingProvider } from 'path-to-folding-provider';
+import * as vscode from 'vscode';
+
+import * as myExtension from '../src/extension';
+
+suite('Extension Test Suite', () => {
+	vscode.window.showInformationMessage('Start all tests.');
+
+	test('Sample test', () => {
+		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
+		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
+	});
+});
 
 describe('FoldingProvider', () => {
     let foldingProvider;
