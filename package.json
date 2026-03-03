@@ -4,6 +4,9 @@
   "license": "MIT",
   "displayName": "Julia Foldable Cells",
   "description": "Enable folding cells in Julia files based on markdown comments",
+  "keywords": [
+    "julia","folding","cells"
+  ],
   "version": "0.0.2",
   "engines": {
     "vscode": "^1.109.0"

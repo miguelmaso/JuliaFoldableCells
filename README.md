@@ -33,5 +33,5 @@ end
 ### 0.0.2
 
 - Added support for first implicit cell.
-- Fixed broken support for structure (condtionals, loops).
+- Fixed broken support for structure (conditionals, loops).
 - Fixed support for nested structure (inner loop, inner functions...).
