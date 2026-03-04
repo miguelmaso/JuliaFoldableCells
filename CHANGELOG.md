@@ -1,6 +1,7 @@
 
 ## [Unreleased]
 
+- Added support for julia.cellDelimiters from Settings.json
 - Improved documentation.
 - Added logo.
 
