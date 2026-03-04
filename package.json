@@ -13,7 +13,7 @@
     "vscode": "^1.109.0"
   },
   "categories": [
-    "Other"
+    "Visualization","Notebooks","Other"
   ],
   "activationEvents": [
     "onLanguage:julia"

@@ -4,7 +4,9 @@ The [*Julia Language Extension*](https://marketplace.visualstudio.com/items?item
 
 ![](https://raw.githubusercontent.com/miguelmaso/JuliaFoldableCells/main/img/foldable_cell.png)
 
+
 ## Features
+
 - Provide folding of cells defined by `##`.
 - Keep a reasonable folding according to the structure defined by the *Julia* syntax.
 
@@ -23,15 +25,3 @@ catch
     0.0
 end
 ```
-
-## Release Notes
-
-### 0.0.1
-
-- Initial release.
-
-### 0.0.2
-
-- Added support for first implicit cell.
-- Fixed broken support for structure (conditionals, loops).
-- Fixed support for nested structure (inner loop, inner functions...).
