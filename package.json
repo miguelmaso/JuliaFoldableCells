@@ -5,7 +5,9 @@
   "displayName": "Julia Foldable Cells",
   "description": "Enable folding cells in Julia files based on markdown comments",
   "keywords": [
-    "julia","folding","cells"
+    "julia",
+    "folding",
+    "cells"
   ],
   "icon": "img/logo.png",
   "version": "0.0.2",
@@ -13,10 +15,15 @@
     "vscode": "^1.109.0"
   },
   "categories": [
-    "Visualization","Notebooks","Other"
+    "Visualization",
+    "Notebooks",
+    "Other"
   ],
   "activationEvents": [
     "onLanguage:julia"
+  ],
+  "extensionDependencies": [
+    "julialang.language-julia"
   ],
   "main": "./out/extension.js",
   "repository": {
@@ -32,13 +39,13 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.109.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "typescript-eslint": "^8.56.1",
+    "@types/vscode": "^1.109.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
     "eslint": "^9.39.3",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.56.1"
   }
 }

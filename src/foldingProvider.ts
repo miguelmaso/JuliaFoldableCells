@@ -7,6 +7,7 @@ export class JuliaCellFoldingProvider implements vscode.FoldingRangeProvider {
         token: vscode.CancellationToken
     ): vscode.ProviderResult<vscode.FoldingRange[]>
     {
+        const cellDelims = getJuliaCellDelimiters();
         const ranges: vscode.FoldingRange[] = [];
         const stack: number[] = [];
         let cellStart: number | null = null;
@@ -15,7 +16,7 @@ export class JuliaCellFoldingProvider implements vscode.FoldingRangeProvider {
             const line = document.lineAt(i).text;
 
             // ---- CELL DETECTION ----
-            if (/^##(?=\s|$)/.test(line)) {
+            if (cellDelims.some(regex => regex.test(line))) {
                 cellStart ??= 0; // If we encounter a cell, make a previous cell from the start of the document.
                 if (i > cellStart + 1) {
                     ranges.push(new vscode.FoldingRange(cellStart, i - 1));
@@ -48,3 +49,15 @@ export class JuliaCellFoldingProvider implements vscode.FoldingRangeProvider {
     }
 }
 
+function getJuliaCellDelimiters(): RegExp[] {
+    const config = vscode.workspace.getConfiguration("julia");
+    const delimiters = config.get<string[]>("cellDelimiters") || [];
+
+    return delimiters.map(pattern => {
+        try {
+            return new RegExp(pattern);
+        } catch {
+            return null;
+        }
+    }).filter((r): r is RegExp => r !== null);
+}
