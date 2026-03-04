@@ -51,7 +51,9 @@ suite('JuliaCellFoldingProvider', () => {
         const code = '##noSpace\nfoo';
         const doc = makeDoc(code);
         const ranges = provider.provideFoldingRanges(doc, {} as any, {} as any) as vscode.FoldingRange[];
-        assert.strictEqual(ranges.length, 0);
+        assert.strictEqual(ranges.length, 1);
+        assert.strictEqual(ranges[0].start, 0);
+        assert.strictEqual(ranges[0].end, 1);
     });
 
     test('function block folding', () => {
