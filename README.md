@@ -1,6 +1,6 @@
 # Julia Foldable Cells
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![CI](https://github.com/miguelmaso/JuliaFoldableCells/actions/workflows/ci.yml/badge.svg)](https://github.com/miguelmaso/JuliaFoldableCells/actions/workflows/ci.yml)
 
 The [*Julia Language Extension*](https://marketplace.visualstudio.com/items?itemName=julialang.language-julia) provides the definition of cells of code by means of the syntax `##` or `#%%` at the begining of a line. This extension enhances cells allowing to fold them.
