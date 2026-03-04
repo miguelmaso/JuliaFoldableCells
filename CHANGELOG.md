@@ -1,5 +1,5 @@
 
-## [Unreleased]
+## [0.0.3]
 
 - Added support for julia.cellDelimiters from Settings.json
 - Improved documentation.
