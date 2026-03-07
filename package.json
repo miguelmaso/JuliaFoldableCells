@@ -3,7 +3,7 @@
   "publisher": "MiguelMas",
   "license": "MIT",
   "displayName": "Julia Foldable Cells",
-  "description": "Enable folding cells in Julia files based on markdown comments",
+  "description": "Easily fold and navigate Julia code cells based on your configured delimiters",
   "keywords": [
     "julia",
     "folding",
