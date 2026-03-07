@@ -1,4 +1,4 @@
-## [Unreleased]
+## [0.1.0]
 
 ### Changed
 - Migrated the structural folding from syntax-based to an indentation-based approach. This provides a faster, native-like experience and avoids conflicts with complex Julia syntax.
