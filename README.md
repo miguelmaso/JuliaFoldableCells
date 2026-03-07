@@ -27,5 +27,6 @@ You can customize these shortcuts anytime by opening the Keyboard Shortcuts menu
 
 ## Known issues
 
+- *Minimap titles:* VSCode does not yet expose an API for providing minimap titles. However, a practical workaround is to add the `MARK:` keyword to your cell definition. For example, the line `## MARK: My definitions` will define a Julia cell, generate a foldable range, and display the title *My definitions* in the minimap.
 - *Indentation dependency:* Structural folding relies strictly on code indentation rather than syntax parsing. If a script has inconsistent or incorrect indentation, the code blocks might not fold as expected. Using a code formatter (like `JuliaFormatter.jl`) will ensure optimal folding behavior.
 - *Multiple folding providers overlap:* If another extension (or a future update to the official Julia extension) registers a custom syntax-based folding provider, VS Code will merge its ranges with the indentation ranges provided by this extension. This could lead to redundant or slightly overlapping folding regions.
