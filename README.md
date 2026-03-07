@@ -14,6 +14,17 @@ The [*Julia Language Extension*](https://marketplace.visualstudio.com/items?item
 - **Native-like Structural Folding:** Because registering a custom folding provider overrides VS Code's default behavior, this extension integrates a fast **indentation-based** folding. It mimics VS Code's native fallback, ensuring that your loops, functions, and standard code blocks remain perfectly foldable alongside your cells.
 
 
+## Keyboard Shortcuts
+
+This extension registers Julia cells as native VS Code folding regions (specifically, "Marker Regions"). Therefore, you can use [VS Code's default folding commands](https://code.visualstudio.com/docs/editor/codebasics#_folding) to easily collapse or expand them. Some of the defaults are
+- Fold all regions `Ctrl+K Ctrl+8`
+- Unfold all Regions `Ctrl+K Ctrl+9`
+- Fold all except selected `Ctrl+K Ctrl+-`
+- Unfold all `Ctrl+K Ctrl+J`
+
+You can customize these shortcuts anytime by opening the Keyboard Shortcuts menu (Preferences: Open Keyboard Shortcuts)
+
+
 ## Known Issues
 
 - **Indentation Dependency:** Structural folding relies strictly on code indentation rather than syntax parsing. If a script has inconsistent or incorrect indentation, the code blocks might not fold as expected. Using a code formatter (like `JuliaFormatter.jl`) will ensure optimal folding behavior.
