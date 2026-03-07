@@ -10,21 +10,11 @@ The [*Julia Language Extension*](https://marketplace.visualstudio.com/items?item
 
 ## Features
 
-- Provide folding of cells defined by [Julia cell delimiters](vscode://settings/julia.cellDelimiters).
-- Keep a reasonable structural folding according to the *Julia* syntax.
+- **Cell Folding:** Automatically provides folding ranges for cells defined by your [Julia cell delimiters](vscode://settings/julia.cellDelimiters).
+- **Native-like Structural Folding:** Because registering a custom folding provider overrides VS Code's default behavior, this extension integrates a fast **indentation-based** folding. It mimics VS Code's native fallback, ensuring that your loops, functions, and standard code blocks remain perfectly foldable alongside your cells.
 
 
 ## Known Issues
 
-This extension overrides the default folding of VSCode. Hence, it has been needed to re-implement the structural folding of the Julia language. The current implementation has some limitations:
-- Does not match `end` which is not at the first column
-- Does not match `begin`, `do`, `if`, `quote`, `try` blocks which are not at the begining of a line
-- When an unmatched keyword is followed by an unmatched `end`, there will happen a wrong folding, e.g.:
-```julia
-if 1 + 1 ≈ 2 true else false end
-sqrt_zero(x) = try
-    sqrt(x)
-catch
-    0.0
-end
-```
+- **Indentation Dependency:** Structural folding relies strictly on code indentation rather than syntax parsing. If a script has inconsistent or incorrect indentation, the code blocks might not fold as expected. Using a code formatter (like `JuliaFormatter.jl`) will ensure optimal folding behavior.
+- **Multiple Folding Providers Overlap:** If another extension (or a future update to the official Julia extension) registers a custom syntax-based folding provider, VS Code will merge its ranges with the indentation ranges provided by this extension. This could lead to redundant or slightly overlapping folding regions.

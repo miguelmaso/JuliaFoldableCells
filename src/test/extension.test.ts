@@ -37,6 +37,13 @@ suite('JuliaCellFoldingProvider', () => {
         const ranges = provider.provideFoldingRanges(doc, {} as any, {} as any) as vscode.FoldingRange[];
         assert.strictEqual(ranges.length, 0);
     });
+    
+    test('document without indentation', () => {
+        const code = 'foo\n\nbar\n\nbaz';
+        const doc = makeDoc(code);
+        const ranges = provider.provideFoldingRanges(doc, {} as any, {} as any) as vscode.FoldingRange[];
+        assert.strictEqual(ranges.length, 0);
+    });
 
     test('cell marker creates a fold', () => {
         const code = '## Cell\nline2\nline3';
@@ -47,7 +54,7 @@ suite('JuliaCellFoldingProvider', () => {
         assert.strictEqual(ranges[0].end, 2);
     });
 
-    test('does not treat ##noSpace as cell', () => {
+    test('cell marker with no space creates a fold', () => {
         const code = '##noSpace\nfoo';
         const doc = makeDoc(code);
         const ranges = provider.provideFoldingRanges(doc, {} as any, {} as any) as vscode.FoldingRange[];
@@ -60,14 +67,14 @@ suite('JuliaCellFoldingProvider', () => {
         const code = 'function f()\n  a = 1\nend';
         const doc = makeDoc(code);
         const ranges = provider.provideFoldingRanges(doc, {} as any, {} as any) as vscode.FoldingRange[];
-        assert.ok(ranges.some(r => r.start === 0 && r.end === 2));
+        assert.ok(ranges.some(r => r.start === 0 && r.end === 1));
     });
 
     test('nested structures are folded', () => {
         const code = 'module M\n  function g()\n    x = 0\n  end\nend';
         const doc = makeDoc(code);
         const ranges = provider.provideFoldingRanges(doc, {} as any, {} as any) as vscode.FoldingRange[];
-        assert.ok(ranges.find(r => r.start === 0 && r.end === 4));
-        assert.ok(ranges.find(r => r.start === 1 && r.end === 3));
+        assert.ok(ranges.find(r => r.start === 0 && r.end === 3));
+        assert.ok(ranges.find(r => r.start === 1 && r.end === 2));
     });
 });

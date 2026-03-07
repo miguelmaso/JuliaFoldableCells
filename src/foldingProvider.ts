@@ -8,41 +8,55 @@ export class JuliaCellFoldingProvider implements vscode.FoldingRangeProvider {
     ): vscode.ProviderResult<vscode.FoldingRange[]>
     {
         const cellDelims = getJuliaCellDelimiters();
+        const tabSize = getTabSize();
         const ranges: vscode.FoldingRange[] = [];
-        const stack: number[] = [];
+        const blockStack: { line: number, indent: number }[] = [];
         let cellStart: number | null = null;
+        let lastLine = -1;
 
         for (let i = 0; i < document.lineCount; i++) {
-            const line = document.lineAt(i).text;
+            if (token.isCancellationRequested) { break; }
+
+            const rawLine = document.lineAt(i);
+            if (rawLine.isEmptyOrWhitespace) { continue; }
+
+            const line = rawLine.text;
 
             // ---- CELL DETECTION ----
             if (cellDelims.some(regex => regex.test(line))) {
                 cellStart ??= 0; // If we encounter a cell, make a previous cell from the start of the document.
-                if (i > cellStart + 1) {
-                    ranges.push(new vscode.FoldingRange(cellStart, i - 1));
+                if (lastLine > cellStart) {
+                    ranges.push(new vscode.FoldingRange(cellStart, lastLine, vscode.FoldingRangeKind.Region));
                 }
                 cellStart = i;
+                lastLine = i;
                 continue;
             }
 
-            // ---- STRUCTURAL START ----
-            if (/^\s*(function|struct|mutable struct|module|let|begin|if|for|while)\b/.test(line)) {
-                stack.push(i);
-                continue;
-            }
-
-            // ---- STRUCTURAL END ----
-            if (/^\s*end\b/.test(line)) {
-                const start = stack.pop();
-                if (start !== undefined && i > start) {
-                    ranges.push(new vscode.FoldingRange(start, i));
+            // ---- INDENT DETECTION ----
+            const indent = computeIndentLevel(line, tabSize);
+            while (blockStack.length > 0 && blockStack[blockStack.length - 1].indent >= indent) {
+                const block = blockStack.pop()!;
+                if (lastLine > block.line) {
+                    ranges.push(new vscode.FoldingRange(block.line, lastLine));
                 }
+            }
+            
+            blockStack.push({ line: i, indent });
+            lastLine = i;
+        }
+
+        // ---- CLOSE REMAINING BLOCKS ----
+        while (blockStack.length > 0) {
+            const block = blockStack.pop()!;
+            if (lastLine > block.line) {
+                ranges.push(new vscode.FoldingRange(block.line, lastLine));
             }
         }
 
         // ---- CLOSE LAST CELL ----
         if (cellStart !== null && document.lineCount > cellStart + 1) {
-            ranges.push(new vscode.FoldingRange(cellStart, document.lineCount - 1));
+            ranges.push(new vscode.FoldingRange(cellStart, document.lineCount - 1, ));
         }
 
         return ranges;
@@ -60,4 +74,21 @@ function getJuliaCellDelimiters(): RegExp[] {
             return null;
         }
     }).filter((r): r is RegExp => r !== null);
+}
+
+function getTabSize(): number {
+    const config = vscode.workspace.getConfiguration("editor");
+    const tabSize = config.get<number | string>("tabSize", 4);
+    return typeof tabSize === "number" ? tabSize : 4;
+}
+
+function computeIndentLevel(line: string, tabSize: number): number {
+    let indent = 0;
+    for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        if (char === ' ') { indent++; }
+        else if (char === '\t') { indent += tabSize; }
+        else { break; }
+    }
+    return indent;
 }
